@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Love Request! ❤️</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:sans-serif;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+  overflow:hidden;
+}
+
+.card{
+  background:white;
+  width:330px;
+  padding:20px;
+  border-radius:20px;
+  text-align:center;
+  position:relative;
+  box-shadow:0 10px 25px rgba(0,0,0,.3);
+}
+
+button{
+  padding:8px 18px;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+#yesBtn{ background:#ff4e50; color:white; }
+#noBtn{ background:#ccc; position:absolute; }
+
+.envelope{
+  display:none;
+  margin-top:15px;
+  background:#ffb3b3;
+  border-radius:10px;
+  padding:15px;
+}
+
+.love-photo{
+  width:100%;
+  border-radius:10px;
+  display:none;
+  margin-top:10px;
+}
+
+.nextBtn{
+  background:#ff4e50;
+  color:white;
+  margin-left:8px;
+}
+
+/* ===== FINAL GALLERY ===== */
+.final{
+  position:fixed;
+  inset:0;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  background:black;
+  overflow:hidden;
+}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr); /* 2 columns */
+  gap:15px;
+  width:90%;
+  max-width:500px;
+
+  animation:scrollUp 20s linear infinite; /* move upward */
+}
+
+@keyframes scrollUp{
+  from{ transform:translateY(100%); }
+  to{ transform:translateY(-120%); }
+}
+
+.photo-card{
+  background:white;
+  padding:8px;
+  border-radius:10px;
+  text-align:center;
+}
+
+.photo-card img{
+  width:100%;
+  height:150px;
+  object-fit:contain;
+}
+
+.caption{
+  font-size:13px;
+  margin-top:6px;
+}
+
+/* hearts */
+.heart{
+  position:fixed;
+  bottom:-10px;
+  animation:float 5s linear infinite;
+}
+
+@keyframes float{
+  to{transform:translateY(-100vh); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 BACKGROUND MUSIC -->
+<audio id="bgMusic" src="Remo Love Bgm Ringtone Download - MobCup.Com.Co.mp3" loop></audio>
+
+<div class="card">
+
+<h2>Sindhu Will You Be My Valentine? ❤️</h2>
+
+<button id="yesBtn">YES ❤️</button>
+<button id="noBtn">NO 💔</button>
+
+<div class="envelope" id="env">
+<p>
+happy valentience day ammu❤️ ipo erukura mariyea yepaum jolly ya erukanum rendu perum.unkudaa nerayaa saninda podanum🥷,Atha vidaa athigama unayaa love painanum 🥰💌,ivlo nall la nerayaa sainda potutan unkita😅,neeum yenaya kolainthaiya nanachu vituruveaa athea marii life long erukanum ,evlo sainda potalum manuchuu vituruu unodaa kolainthaiya,naa tha aintha kolaintha🥰,ithea marii inum neraya valentience week kondanum rendu perum senthuu 🫂,u are my lucky charm 💎,unaya yarukum kuduka matan,nee tha yenodaa chello pulla 💕thangoo pulla yella mea😘🥰.lovee you so much ammu😘😘.unakaga naimaloda memories koicham koidu vainthu eruken paruu🫣. click next to continew <br><br>
+
+Forever yours<br>
+Anish 💕
+<button class="nextBtn" id="nextBtn" style="display:none;">Next ➜</button>
+</p>
+
+</div>
+
+</div>
+
+<div class="final" id="final">
+  <div class="gallery" id="gallery"></div>
+</div>
+
+<script>
+/* GET ELEMENTS */
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const env = document.getElementById("env");
+const nextBtn = document.getElementById("nextBtn");
+const final = document.getElementById("final");
+const gallery = document.getElementById("gallery");
+const bgMusic = document.getElementById("bgMusic");
+
+/* YES BUTTON */
+yesBtn.onclick = function(){
+  yesBtn.style.display="none";
+  noBtn.style.display="none";
+  env.style.display="block";
+
+  // Start background music after clicking YES
+  bgMusic.play().catch(()=>{}); // handles autoplay restrictions
+
+  // show NEXT button after small delay
+  setTimeout(()=> nextBtn.style.display="inline-block", 1500);
+}
+
+/* NO BUTTON RUN AWAY */
+noBtn.onmouseover = function(){
+  noBtn.style.left=Math.random()*200+"px";
+  noBtn.style.top=Math.random()*150+"px";
+}
+
+/* NEXT BUTTON SHOW GALLERY */
+nextBtn.onclick = function(){
+  final.style.display="flex";
+  loadPhotos();
+}
+
+/* PHOTOS + CAPTIONS */
+const photos=[
+  {src:"img1.jpeg", text:"seceret spot🫣 ❤️"},
+  {src:"img2.jpeg", text:"Food date 🍕"},
+  {src:"img3.jpeg", text:"Our first selfie🫠"},
+  {src:"img4.jpeg", text:"Might night conversation 💕"},
+  {src:"img5.jpeg", text:"Me at your home 🥰"},
+  {src:"img6.jpeg", text:"Forever Us 🥰"},
+  {src:"img7.jpeg", text:"Bike ride 🫣🥰"},
+  {src:"img8.jpeg", text:"Holding your hand❤️"}
+];
+
+function loadPhotos(){
+  gallery.innerHTML="";
+  photos.forEach(p=>{
+    const div=document.createElement("div");
+    div.className="photo-card";
+
+    div.innerHTML=`
+      <img src="${p.src}">
+      <div class="caption">${p.text}</div>
+    `;
+
+    gallery.appendChild(div);
+  });
+}
+
+/* HEARTS ANIMATION */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),5000);
+},300);
+</script>
+
+</body>
+</html>
